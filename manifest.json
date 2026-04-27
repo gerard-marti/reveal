@@ -1,0 +1,9 @@
+{
+    "name":"Net Reveal",
+    "short_name":"Net",
+    "display":"standalone",
+    "background_color":"#fff4f8",
+    "theme_color":"#f8d7e8",
+    "start_url":"./",
+    "icons":[]
+    }
