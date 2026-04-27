@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#f8d7e8">
-<title>Olívia 💗</title>
-<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#a6b37d">
+<title>Revelació 💗</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
 font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;
-background:linear-gradient(145deg,#fff4f8,#fff0d7);
+background:linear-gradient(145deg,#f5f7e8,#ece8c9);
 min-height:100vh;
 overflow:hidden;
 display:flex;
@@ -48,7 +47,7 @@ text-align:center;
 
 h1{
 font-size:clamp(2rem,8vw,4rem);
-color:#bf3f79;
+color:#6b7d3a;
 margin-bottom:25px;
 }
 
@@ -74,7 +73,7 @@ border-radius:22px;
 .num{
 font-size:clamp(1.5rem,5vw,3rem);
 font-weight:800;
-color:#bf3f79;
+color:#6b7d3a;
 }
 
 .small{
@@ -82,24 +81,27 @@ font-size:.8rem;
 opacity:.7;
 }
 
-button{
-margin-top:22px;
+#startBtn {
 border:none;
-background:#bf3f79;
+background:#6b7d3a;
 color:white;
-padding:15px 26px;
+padding:20px 40px;
 border-radius:999px;
 font-weight:700;
-font-size:1rem;
-box-shadow:0 8px 25px rgba(191,63,121,.35);
+font-size:1.5rem;
+cursor:pointer;
+box-shadow:0 8px 25px rgba(107,125,58,.3);
+transition: transform 0.2s;
 }
+
+#startBtn:active { transform: scale(0.95); }
 
 .last10{
 animation:pulseBG .6s infinite alternate;
 }
 .last10 #mainCounter{
 animation:boom .5s infinite;
-color:#ff2e5f;
+color:#7d9145;
 }
 
 @keyframes boom{
@@ -108,15 +110,15 @@ to{transform:scale(1.18)}
 }
 
 @keyframes pulseBG{
-from{background:linear-gradient(145deg,#ffe7f3,#fff0d7)}
-to{background:linear-gradient(145deg,#ffd5eb,#ffecc0)}
+from{background:linear-gradient(145deg,#eef3d4,#f5edd1)}
+to{background:linear-gradient(145deg,#dfe8b6,#efe1b0)}
 }
 
 #message{
 font-size:clamp(1.6rem,6vw,3rem);
 line-height:1.5;
 font-weight:700;
-color:#6f2b55;
+color:#55652f;
 }
 
 #reveal img{
@@ -130,7 +132,7 @@ margin-bottom:25px;
 font-size:clamp(2rem,6vw,3.4rem);
 font-weight:900;
 line-height:1.3;
-background:linear-gradient(90deg,#bf3f79,#ff7da5);
+background:linear-gradient(90deg,#6b7d3a,#95a85a);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
@@ -150,138 +152,149 @@ to{transform:translateY(-20vh) scale(1.5);opacity:0}
 </head>
 <body>
 
-<script>
-const IMAGE_URL="https://imgur.com/a/6ZVxGcm";
-const SONG_URL="https://drive.google.com/file/d/1FlsOo3ofFzTTh9eJqkdIeypQ5RqwQg56/view?usp=sharing";
-</script>
+<section id="startScreen" class="screen" style="z-index: 9999; background: inherit;">
+    <div class="card">
+        <h1>Teniu un missatge...</h1>
+        <p style="margin-bottom: 20px; color: #6b7d3a;">Toqueu el botó per començar</p>
+        <button id="startBtn">Obrir 💌</button>
+    </div>
+</section>
 
-<audio id="music" loop>
-<source id="songSrc" src="">
-</audio>
+<audio id="music" loop preload="auto"></audio>
 
-<section id="countScreen" class="screen">
-<div class="card">
-<h1>Vols saber si sóc nen o nena?</h1>
-<div id="mainCounter">--</div>
-
-<div class="grid">
-<div class="box"><div class="num" id="d">0</div><div class="small">dies</div></div>
-<div class="box"><div class="num" id="h">0</div><div class="small">hores</div></div>
-<div class="box"><div class="num" id="m">0</div><div class="small">minuts</div></div>
-<div class="box"><div class="num" id="s">0</div><div class="small">segons</div></div>
-</div>
-
-<button onclick="startMusic()">🎵 Activar música</button>
-</div>
+<section id="countScreen" class="screen hidden">
+    <div class="card">
+        <h1>Vols saber si sóc nen o nena?</h1>
+        <div id="mainCounter">--</div>
+        <div class="grid">
+            <div class="box"><div class="num" id="d">0</div><div class="small">dies</div></div>
+            <div class="box"><div class="num" id="h">0</div><div class="small">hores</div></div>
+            <div class="box"><div class="num" id="m">0</div><div class="small">minuts</div></div>
+            <div class="box"><div class="num" id="s">0</div><div class="small">segons</div></div>
+        </div>
+    </div>
 </section>
 
 <section id="msgScreen" class="screen hidden">
-<div class="card">
-<div id="message"></div>
-</div>
+    <div class="card">
+        <div id="message"></div>
+    </div>
 </section>
 
 <section id="reveal" class="screen hidden">
-<div class="card">
-<img id="babyPic" src="">
-<div id="finalText">
-Em dic Olívia avis,<br>
-espero que m'estimeu molt,<br>
-perquè jo ja us estimo 💗
-</div>
-</div>
+    <div class="card">
+        <img id="babyPic" src="">
+        <div id="finalText">
+            Em dic Olívia avis,<br>
+            espero que m'estimeu molt,<br>
+            perquè jo ja us estimo 💗
+        </div>
+    </div>
 </section>
 
 <script>
-document.getElementById('babyPic').src=IMAGE_URL;
-document.getElementById('songSrc').src=SONG_URL;
+const IMAGE_URL = "https://i.imgur.com/0HcaFNl.png";
+const SONG_URL = "musica.mp3"; 
+const TARGET = new Date('2026-04-27T21:09:00');
 
-const TARGET=new Date('2026-04-27T21:30:00');
-let done=false;
+const audio = document.getElementById('music');
+document.getElementById('babyPic').src = IMAGE_URL;
+audio.src = SONG_URL;
+
+let done = false;
+
+document.getElementById('startBtn').addEventListener('click', function() {
+    document.getElementById('startScreen').classList.add('hidden');
+    
+    audio.play().then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+    }).catch(e => console.log("Audio prep ready"));
+
+    if(new Date() >= TARGET) {
+        startMessage();
+    } else {
+        document.getElementById('countScreen').classList.remove('hidden');
+        tick();
+        setInterval(tick, 1000);
+    }
+});
 
 function pad(n){return String(n).padStart(2,'0')}
 
 function tick(){
-if(done) return;
-let diff=TARGET-new Date();
+    if(done) return;
+    let diff = TARGET - new Date();
 
-if(diff<=0){
-startMessage();
-return;
-}
+    if(diff <= 0){
+        startMessage();
+        return;
+    }
 
-let days=Math.floor(diff/86400000);
-let hrs=Math.floor(diff%86400000/3600000);
-let mins=Math.floor(diff%3600000/60000);
-let sec=Math.floor(diff%60000/1000);
+    let days = Math.floor(diff/86400000);
+    let hrs = Math.floor(diff%86400000/3600000);
+    let mins = Math.floor(diff%3600000/60000);
+    let sec = Math.floor(diff%60000/1000);
 
-d.textContent=days;
-h.textContent=pad(hrs);
-m.textContent=pad(mins);
-s.textContent=pad(sec);
-mainCounter.textContent=`${pad(hrs)}:${pad(mins)}:${pad(sec)}`;
+    d.textContent = days;
+    h.textContent = pad(hrs);
+    m.textContent = pad(mins);
+    s.textContent = pad(sec);
+    mainCounter.textContent = `${pad(hrs)}:${pad(mins)}:${pad(sec)}`;
 
-if(diff<=10000){
-document.body.classList.add('last10');
-mainCounter.textContent=sec;
-hearts();
-}
-}
-
-setInterval(tick,1000);
-tick();
-
-function startMusic(){
-document.getElementById('music').load();
-document.getElementById('music').play();
+    if(diff <= 10000){
+        document.body.classList.add('last10');
+        mainCounter.textContent = sec;
+        hearts();
+    }
 }
 
 function startMessage(){
-done=true;
-countScreen.classList.add('hidden');
-setTimeout(()=>{
-msgScreen.classList.remove('hidden');
-typeText();
-},1000)
+    done = true;
+    countScreen.classList.add('hidden');
+    setTimeout(() => {
+        msgScreen.classList.remove('hidden');
+        typeText();
+    }, 1000)
 }
 
-const txt="Hola avis, sóc el vostre nèt o neta, els papas m'han dit que quan ells eren petits, els vau cuidar molt bé, així que jo espero que també em cuideu igual que ho heu fet amb ells";
+const txt = "Hola avis, sóc el vostre nèt o neta, els papas m'han dit que quan ells eren petits, els vau cuidar molt bé, així que jo espero que també em cuideu igual que ho heu fet amb ells";
 
 function typeText(){
-let i=0;
-let box=document.getElementById('message');
-let t=setInterval(()=>{
-box.textContent=txt.slice(0,i++);
-if(i>txt.length) clearInterval(t)
-},55)
+    // La música empieza con el texto
+    audio.play().catch(e => console.log("Error al sonar:", e));
 
-setTimeout(showReveal,60000)
+    let i = 0;
+    let box = document.getElementById('message');
+    let t = setInterval(() => {
+        box.textContent = txt.slice(0, i++);
+        if(i > txt.length) clearInterval(t)
+    }, 55);
+
+    // Pasamos a la revelación pero NO pausamos la música
+    setTimeout(() => {
+        showReveal();
+    }, 30000);
 }
 
 function showReveal(){
-msgScreen.classList.add('hidden');
-setTimeout(()=>{
-reveal.classList.remove('hidden');
-setInterval(hearts,800)
-},1000)
+    msgScreen.classList.add('hidden');
+    setTimeout(() => {
+        reveal.classList.remove('hidden');
+        setInterval(hearts, 800);
+    }, 1000);
 }
 
 function hearts(){
-for(let i=0;i<5;i++){
-let h=document.createElement('div');
-h.className='heart';
-h.innerHTML=Math.random()>.5?'💗':'✨';
-h.style.left=Math.random()*100+'vw';
-h.style.animationDuration=(4+Math.random()*4)+'s';
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),7000)
-}
-}
-
-if(new Date()>=TARGET) startMessage();
-
-if('serviceWorker' in navigator){
-navigator.serviceWorker.register('sw.js');
+    for(let i=0; i<5; i++){
+        let h = document.createElement('div');
+        h.className = 'heart';
+        h.innerHTML = Math.random() > .5 ? '💗' : '✨';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.animationDuration = (4 + Math.random() * 4) + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 7000);
+    }
 }
 </script>
 </body>
